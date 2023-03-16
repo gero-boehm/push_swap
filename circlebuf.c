@@ -9,7 +9,6 @@ typedef struct s_stack {
 	unsigned long	start;
 }	t_stack;
 
-
 int	malloc2(size_t count, int **ptr)
 {
 	*ptr = malloc(count);
@@ -26,7 +25,7 @@ int	create_stack(t_stack *stack, size_t size)
 	return (0);
 }
 
-unsigned long	normalize_index(t_stack *stack, unsigned long index)
+unsigned long	normalize_index(t_stack *stack, long index)
 {
 	return ((index + stack->start + stack->max_size) % stack->max_size);
 }
@@ -59,6 +58,8 @@ void	swap(t_stack *stack)
 	int	item1;
 	int	item2;
 
+	if (stack->size < 2)
+		return ;
 	item1 = get_item_at(stack, 0);
 	item2 = get_item_at(stack, 1);
 	set_item_at(stack, 0, item2);
@@ -83,6 +84,8 @@ void	rotate(t_stack *stack)
 {
 	int	item;
 
+	if (stack->size < 2)
+		return ;
 	item = get_item_at(stack, 0);
 	stack->start = normalize_index(stack, 1);
 	set_item_at(stack, stack->size - 1, item);
@@ -92,6 +95,8 @@ void	rotate_reverse(t_stack *stack)
 {
 	int	item;
 
+	if (stack->size < 2)
+		return ;
 	item = get_item_at(stack, stack->size - 1);
 	stack->start = normalize_index(stack, -1);
 	set_item_at(stack, 0, item);
@@ -220,10 +225,15 @@ int	main(void)
 	// run ops here
 	pb(&stack_a, &stack_b);
 	pb(&stack_a, &stack_b);
-	ra(&stack_a);
 	pb(&stack_a, &stack_b);
-	ra(&stack_b);
-	pa(&stack_b, &stack_a);
+	pb(&stack_a, &stack_b);
+	// pb(&stack_a, &stack_b);
+	// ra(&stack_a);
+	// pb(&stack_a, &stack_b);
+	// rb(&stack_b);
+	// rb(&stack_b);
+	// pb(&stack_b, &stack_a);
+
 
 	print_indices();
 	print_stacks(&stack_a, &stack_b);
