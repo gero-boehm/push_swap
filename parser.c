@@ -6,16 +6,17 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:16:14 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/16 16:27:25 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/17 13:28:06 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <limits.h>
+#include "push_swap.h"
 #include "libft.h"
 #include "ft_printf.h"
 
-int	does_arg_have_spaces(char *arg)
+static int	does_arg_have_spaces(char *arg)
 {
 	while (*arg)
 	{
@@ -26,7 +27,7 @@ int	does_arg_have_spaces(char *arg)
 	return (0);
 }
 
-int	is_invalid_number(char *str)
+static int	is_invalid_number(char *str)
 {
 	if (*str == '+' || *str == '-')
 		str++;
@@ -40,7 +41,7 @@ int	is_invalid_number(char *str)
 	return (0);
 }
 
-void	sanitize_spaces(char *str)
+static void	sanitize_spaces(char *str)
 {
 	while (*str)
 	{
@@ -50,54 +51,44 @@ void	sanitize_spaces(char *str)
 	}
 }
 
-int	parse(t_array *arr, char **args)
+static int	split_group_into_values(char *group, t_array *arr)
 {
-	long	value;
 	char	**split;
 
+	sanitize_spaces(group);
+	if (ft_split2(group, ' ', &split))
+		return (1);
+	if (parse(arr, split))
+		return (2);
+	return (0);
+}
+
+static int	parse_value(char *arg, t_array *arr)
+{
+	long	value;
+
+	if (is_invalid_number(arg))
+		return (1);
+	value = ft_atol(arg);
+	if (value > INT_MAX)
+		return (2);
+	if (add_element(arr, &value))
+		return (3);
+	return (0);
+}
+
+int	parse(t_array *arr, char **args)
+{
 	while (*args != NULL)
 	{
 		if (does_arg_have_spaces(*args))
 		{
-			sanitize_spaces(*args);
-			if (ft_split2(*args, ' ', &split))
+			if (split_group_into_values(*args, arr))
 				return (1);
-			if (parse(arr, split))
-				return (2);
-			args++;
-			continue ;
 		}
-		if (is_invalid_number(*args))
-			return (3);
-		value = ft_atol(*args);
-		if (value > INT_MAX)
-			return (4);
-		add_element(arr, &value);
+		else if (parse_value(*args, arr))
+			return (2);
 		args++;
 	}
 	return (0);
-}
-
-void error(void)
-{
-	ft_fdprintf(2, "Error\n");
-}
-
-int	main(int argc, char **argv)
-{
-	t_array	values;
-	long	value;
-
-	if (create_array(&values, sizeof(int)))
-		return (error(), 1);
-	argv++;
-	if (parse(&values, argv))
-		return (error(), 2);
-
-	for (int i = 0; i < values.size; i++)
-	{
-		int value = *(int *) get_element_at(&values, i);
-		ft_printf("%d\n", value);
-	}
-
 }

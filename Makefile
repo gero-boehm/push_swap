@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-I include -I lib/include
 NAME=push_swap
-SRC=parser.c
+SRC=main.c parser.c stack.c operations/operations.c operations/push.c operations/rotate_reverse.c operations/rotate.c operations/swap.c
 OBJ=$(SRC:.c=.o)
 HEADERS=include/push_swap.h
 
@@ -37,7 +37,7 @@ lclean: fclean
 re: fclean all
 
 norm:
-	norminette $(addprefix src/, $(SRC)) $(HEADERS)
+	norminette $(SRC) $(HEADERS)
 
 .PHONY:
 	all bonus clean fclean lclean re norm
