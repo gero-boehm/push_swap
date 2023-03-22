@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:25 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/22 11:29:45 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/22 13:09:32 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_item {
 }	t_item;
 
 typedef struct s_stack {
-	int				*items;
+	t_item			*items;
 	size_t			size;
 	size_t			max_size;
 	unsigned long	start;
@@ -32,9 +32,9 @@ typedef struct s_stack {
 int				parse(t_array *arr, char **args);
 
 int				create_stack(t_stack *stack, size_t size, char label);
-int				add_item(t_stack *stack, int item);
-int				get_item_at(t_stack *stack, long index);
-void			set_item_at(t_stack *stack, long index, int item);
+int				add_item(t_stack *stack, t_item item);
+t_item			get_item_at(t_stack *stack, long index);
+void			set_item_at(t_stack *stack, long index, t_item item);
 unsigned long	normalize_index(t_stack *stack, long index);
 
 void			exec_swap(t_stack *stack);
