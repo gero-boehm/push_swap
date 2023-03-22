@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:02:44 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/17 15:02:45 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/20 12:58:01 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
-int	create_stack(t_stack *stack, size_t size)
+int	create_stack(t_stack *stack, size_t size, char label)
 {
-	if (ft_malloc2(size * sizeof(t_item), (void **) &stack->items))
+	if (ft_malloc2(size * sizeof(int), (void **) &stack->items))
 		return (1);
 	stack->size = 0;
 	stack->max_size = size;
 	stack->start = 0;
+	stack->label = label;
 	return (0);
 }
 
@@ -30,7 +31,7 @@ unsigned long	normalize_index(t_stack *stack, long index)
 	return ((index + stack->start + stack->max_size) % stack->max_size);
 }
 
-int	add_item(t_stack *stack, t_item item)
+int	add_item(t_stack *stack, int item)
 {
 	unsigned long	index;
 
@@ -41,55 +42,17 @@ int	add_item(t_stack *stack, t_item item)
 	return (0);
 }
 
-t_item	get_item_at(t_stack *stack, long index)
+int	get_item_at(t_stack *stack, long index)
 {
 	index = normalize_index(stack, index);
 	return (stack->items[index]);
 }
 
-void	set_item_at(t_stack *stack, long index, t_item item)
+void	set_item_at(t_stack *stack, long index, int item)
 {
 	index = normalize_index(stack, index);
 	stack->items[index] = item;
 }
-
-void	print_stack(t_stack *stack)
-{
-	if (stack->size == 0)
-	{
-		printf("                    ");
-		return ;
-	}
-	for (int i = 0; i < 10; i++)
-	{
-		if ((i >= stack->start && i <= stack->start + stack->size - 1) || (stack->start + stack->size > 10 && i <= normalize_index(stack, stack->size - 1)))
-			printf("%d ", get_item_at(stack, i - stack->start));
-		else
-			printf("  ");
-	}
-}
-
-void	print_indices()
-{
-	printf("\n");
-	printf("\n");
-	for (int i = 0; i < 10; i++)
-		printf("%d ", i);
-	printf("    ");
-	for (int i = 0; i < 10; i++)
-		printf("%d ", i);
-	printf("\n");
-}
-
-void	print_stacks(t_stack *stack1, t_stack *stack2)
-{
-	print_stack(stack1);
-	printf("    ");
-	print_stack(stack2);
-	printf("\n");
-	printf("\n");
-}
-
 // int	main(void)
 // {
 // 	t_stack	stack_a;

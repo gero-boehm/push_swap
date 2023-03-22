@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-I include -I lib/include
 NAME=push_swap
-SRC=main.c parser.c stack.c operations/operations.c operations/push.c operations/rotate_reverse.c operations/rotate.c operations/swap.c
+SRC=main.c parser.c stack.c operations/operations.c
 OBJ=$(SRC:.c=.o)
 HEADERS=include/push_swap.h
 
@@ -25,6 +25,21 @@ lib/lib.a:
 $(NAME): lib/lib.a $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $^
 
+100: all
+	./push_swap 83 -326 -160 5 151 -260 112 -410 87 -358 -235 224 -142 -282 -228 -87 118 383 23 -117 384 -171 96 308 93 123 373 -372 321 493 -49 -432 -447 -176 451 364 166 -115 -496 190 256 337 350 -380 483 424 132 307 219 -401 242 -159 -53 -211 114 -283 -59 288 200 14 346 27 31 -68 386 -268 -47 -126 469 29 -245 101 332 25 187 362 44 280 -395 -100 268 -458 -154 206 486 -423 419 32 -74 -137 273 318 403 -406 -232 433 -344 -164 -168 216
+
+100r: all
+	./push_swap $(shell ./rand.sh 100 1000)
+
+10: all
+	./push_swap 48 41 38 20 9 -41 -44 -14 2 -40
+
+10r: all
+	./push_swap $(shell ./rand.sh 10 100)
+
+10s: all
+	./push_swap -5 -4 -3 -2 -1 0 1 2 3 4
+
 clean:
 	rm -f $(OBJ)
 
@@ -40,4 +55,4 @@ norm:
 	norminette $(SRC) $(HEADERS)
 
 .PHONY:
-	all bonus clean fclean lclean re norm
+	all bonus clean fclean lclean re norm 100 100r

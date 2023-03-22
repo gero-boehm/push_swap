@@ -6,10 +6,11 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:16:14 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/17 13:28:06 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/18 17:07:48 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include "push_swap.h"
@@ -70,7 +71,7 @@ static int	parse_value(char *arg, t_array *arr)
 	if (is_invalid_number(arg))
 		return (1);
 	value = ft_atol(arg);
-	if (value > INT_MAX)
+	if (value > INT_MAX || value < INT_MIN)
 		return (2);
 	if (add_element(arr, &value))
 		return (3);
