@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:25 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/28 01:43:35 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/28 23:02:33 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,12 @@ void			rotate_reverse_both(t_stack *stack1, t_stack *stack2);
 
 int				is_sorted(t_stack *stack);
 void			sort(t_stack *stack_a, t_stack *stack_b);
+void			sort_three(t_stack *stack);
+void			sort_five(t_stack *stack_a, t_stack *stack_b);
+
+int				does_arg_have_spaces(char *arg);
+int				is_invalid_number(char *str);
+void			sanitize_spaces(char *str);
+int				is_arg_only_spaces(char *str);
 
 #endif

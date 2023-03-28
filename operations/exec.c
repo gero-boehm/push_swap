@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   operations.c                                       :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:22:22 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/22 13:57:58 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/28 23:04:42 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include "ft_printf.h"
 
 void	exec_swap(t_stack *stack)
 {
@@ -60,49 +59,4 @@ void	exec_rotate_reverse(t_stack *stack)
 	item = get_item_at(stack, stack->size - 1);
 	stack->start = normalize_index(stack, -1);
 	set_item_at(stack, 0, item);
-}
-
-void	swap(t_stack *stack)
-{
-	ft_printf("s%c\n", stack->label);
-	exec_swap(stack);
-}
-
-void	swap_both(t_stack *stack1, t_stack *stack2)
-{
-	ft_printf("ss\n");
-	exec_swap(stack1);
-	exec_swap(stack2);
-}
-
-void	push(t_stack *stack1, t_stack *stack2)
-{
-	ft_printf("p%c\n", stack2->label);
-	exec_push(stack1, stack2);
-}
-
-void	rotate(t_stack *stack)
-{
-	ft_printf("r%c\n", stack->label);
-	exec_rotate(stack);
-}
-
-void	rotate_both(t_stack *stack1, t_stack *stack2)
-{
-	ft_printf("rr\n");
-	exec_rotate(stack1);
-	exec_rotate(stack2);
-}
-
-void	rotate_reverse(t_stack *stack)
-{
-	ft_printf("rr%c\n", stack->label);
-	exec_rotate_reverse(stack);
-}
-
-void	rotate_reverse_both(t_stack *stack1, t_stack *stack2)
-{
-	ft_printf("rrr\n");
-	exec_rotate_reverse(stack1);
-	exec_rotate_reverse(stack2);
 }

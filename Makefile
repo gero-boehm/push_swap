@@ -1,7 +1,7 @@
 CC=cc
 CFLAGS=-I include -I lib/include
 NAME=push_swap
-SRC=main.c parser.c stack.c operations/operations.c sort.c
+SRC=push_swap.c parser.c parser_utils.c stack.c is_sorted.c sort.c sort_small.c operations/exec.c operations/ops.c operations/ops_both.c
 OBJ=$(SRC:.c=.o)
 HEADERS=include/push_swap.h
 
