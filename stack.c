@@ -6,12 +6,10 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:02:44 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/22 14:44:14 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/27 23:54:41 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "push_swap.h"
 

@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:33:11 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/22 15:48:13 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/28 01:43:01 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-void	error(void)
+static void	error(void)
 {
-	ft_fdprintf(2, "Error\n");
+	write(2, "Error\n", 6);
 }
 
 int	has_duplicates(t_array *values)
@@ -76,79 +76,41 @@ void	populate_stack(t_stack *stack, t_array *values)
 	}
 }
 
-void printb(int value)
-{
-	for(int i = 0; i < 32; i++)
-	{
-		ft_printf("%d", !!(value & (1 << (31 - i))));
-	}
-	ft_printf("\n");
-}
+// int	is_sorted(t_array *values)
+// {
+// 	int	i;
+// 	int	current;
+// 	int	last;
 
+// 	if (values->size <= 1)
+// 		return (1);
+// 	i = 1;
+// 	last = *(int *) get_element_at(values, 0);
+// 	while (i < (int) values->size)
+// 	{
+// 		current = *(int *) get_element_at(values, i);
+// 		if (current <= last)
+// 			return (0);
+// 		last = current;
+// 		i++;
+// 	}
+// 	return (1);
+// }
 
-int	get_op_count(t_stack *stack, int order)
-{
-	unsigned long	i;
-	t_item			item;
-
-	i = 0;
-	while (i < stack->size)
-	{
-		item = get_item_at(stack, i);
-		if (item.order == order)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-void	sort(t_stack *stack_a, t_stack *stack_b)
+int	is_sorted(t_stack *stack)
 {
 	int	i;
-	int	range;
 
-	range = (int) sqrt(stack_a->size) * 14 / 10;
-
-	// for (unsigned long i = 0; i < stack_a->size; i++)
-	// {
-	// 	t_item item = get_item_at(stack_a, i);
-	// 	ft_printf("%10d - %03d\n", item.value, item.order);
-	// }
-
+	if (stack->size <= 1)
+		return (1);
 	i = 0;
-	while (stack_a->size)
+	while (i < (int) stack->size)
 	{
-		t_item item = get_item_at(stack_a, 0);
-		if (item.order <= i)
-		{
-			push(stack_a, stack_b);
-			rotate(stack_b);
-			i++;
-		}
-		else if (item.order <= i + range)
-		{
-			push(stack_a, stack_b);
-			i++;
-		}
-		else
-			rotate(stack_a);
+		if (get_item_at(stack, i).order != i)
+			return (0);
+		i++;
 	}
-	while (stack_b->size)
-	{
-		int rb = get_op_count(stack_b, --i);
-		int rrb = stack_b->size - rb;
-		if (rb <= rrb)
-		{
-			while (rb--)
-				rotate(stack_b);
-		}
-		else
-		{
-			while (rrb--)
-				rotate_reverse(stack_b);
-		}
-		push(stack_b, stack_a);
-	}
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -162,16 +124,19 @@ int	main(int argc, char **argv)
 	if (create_array(&values, sizeof(int)))
 		return (error(), 1);
 	if (parse(&values, ++argv))
-		return (error(), 2);
+		return (free_array(&values), error(), 2);
 	if (has_duplicates(&values))
-		return (error(), 3);
+		return (free_array(&values), error(), 3);
 	if (create_stack(&stack_a, values.size, 'a'))
-		return (3);
+		return (free_array(&values), 3);
 	if (create_stack(&stack_b, values.size, 'b'))
-		return (4);
+		return (free_array(&values), free(stack_a.items), 4);
 	populate_stack(&stack_a, &values);
 	free_array(&values);
-	sort(&stack_a, &stack_b);
+	if (!is_sorted(&stack_a))
+		sort(&stack_a, &stack_b);
+	free(stack_a.items);
+	free(stack_b.items);
 	return (0);
 }
 

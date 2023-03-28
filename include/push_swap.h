@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:25 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/22 13:09:32 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/28 01:43:35 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,7 @@ void			rotate_both(t_stack *stack1, t_stack *stack2);
 void			rotate_reverse(t_stack *stack);
 void			rotate_reverse_both(t_stack *stack1, t_stack *stack2);
 
-void			sa(t_stack *stack);
-void			sb(t_stack *stack);
-void			ss(t_stack *stack1, t_stack *stack2);
-void			pb(t_stack *a, t_stack *b);
-void			pa(t_stack *b, t_stack *a);
-void			ra(t_stack *stack);
-void			rb(t_stack *stack);
-void			rr(t_stack *stack1, t_stack *stack2);
-void			rra(t_stack *stack);
-void			rrb(t_stack *stack);
-void			rrr(t_stack *stack1, t_stack *stack2);
+int				is_sorted(t_stack *stack);
+void			sort(t_stack *stack_a, t_stack *stack_b);
 
 #endif

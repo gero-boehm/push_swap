@@ -6,16 +6,14 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 13:16:14 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/18 17:07:48 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/03/27 23:47:26 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
 #include "push_swap.h"
 #include "libft.h"
-#include "ft_printf.h"
 
 static int	does_arg_have_spaces(char *arg)
 {
@@ -52,11 +50,21 @@ static void	sanitize_spaces(char *str)
 	}
 }
 
+static int	is_arg_only_spaces(char *str)
+{
+	while (*str)
+	{
+		if (*str != ' ')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
 static int	split_group_into_values(char *group, t_array *arr)
 {
 	char	**split;
 
-	sanitize_spaces(group);
 	if (ft_split2(group, ' ', &split))
 		return (1);
 	if (parse(arr, split))
@@ -84,11 +92,14 @@ int	parse(t_array *arr, char **args)
 	{
 		if (does_arg_have_spaces(*args))
 		{
-			if (split_group_into_values(*args, arr))
+			sanitize_spaces(*args);
+			if (is_arg_only_spaces(*args))
 				return (1);
+			if (split_group_into_values(*args, arr))
+				return (2);
 		}
 		else if (parse_value(*args, arr))
-			return (2);
+			return (3);
 		args++;
 	}
 	return (0);
