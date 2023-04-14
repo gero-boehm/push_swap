@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:02:44 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/27 23:54:41 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/04/14 11:28:28 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	create_stack(t_stack *stack, size_t size, char label)
 {
-	if (ft_malloc2(size * sizeof(t_item), (void **) &stack->items))
+	if (ft_malloc2(size * sizeof(int), (void **) &stack->items))
 		return (1);
 	stack->size = 0;
 	stack->max_size = size;
@@ -29,7 +29,7 @@ unsigned long	normalize_index(t_stack *stack, long index)
 	return ((index + stack->start + stack->max_size) % stack->max_size);
 }
 
-int	add_item(t_stack *stack, t_item item)
+int	add_item(t_stack *stack, int item)
 {
 	unsigned long	index;
 
@@ -40,13 +40,13 @@ int	add_item(t_stack *stack, t_item item)
 	return (0);
 }
 
-t_item	get_item_at(t_stack *stack, long index)
+int	get_item_at(t_stack *stack, long index)
 {
 	index = normalize_index(stack, index);
 	return (stack->items[index]);
 }
 
-void	set_item_at(t_stack *stack, long index, t_item item)
+void	set_item_at(t_stack *stack, long index, int item)
 {
 	index = normalize_index(stack, index);
 	stack->items[index] = item;

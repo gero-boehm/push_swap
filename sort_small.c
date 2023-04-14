@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 22:36:16 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/28 22:36:51 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/04/14 11:28:03 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static int	should_swap(t_stack *stack)
 {
 	int		i;
 	int		j;
-	t_item	item_a;
-	t_item	item_b;
+	int		item_a;
+	int		item_b;
 	int		order;
 
 	i = 0;
 	while (i < 3)
 	{
-		if (get_item_at(stack, i).order == 0)
+		if (get_item_at(stack, i) == 0)
 			break ;
 		i++;
 	}
@@ -34,7 +34,7 @@ static int	should_swap(t_stack *stack)
 	{
 		item_a = get_item_at(stack, i - 1);
 		item_b = get_item_at(stack, i);
-		order += item_b.order - item_a.order;
+		order += item_b - item_a;
 		i++;
 		j++;
 	}
@@ -53,20 +53,20 @@ void	sort_five(t_stack *stack_a, t_stack *stack_b)
 {
 	while (stack_a->size > 2)
 	{
-		if (get_item_at(stack_a, 0).order < 3)
+		if (get_item_at(stack_a, 0) < 3)
 			push(stack_a, stack_b);
 		else
 			rotate(stack_a);
 	}
-	if (get_item_at(stack_a, 0).order == 4)
+	if (get_item_at(stack_a, 0) == 4)
 		swap(stack_a);
 	if (stack_b->size == 3)
 	{
-		while (get_item_at(stack_b, 0).order != 2)
+		while (get_item_at(stack_b, 0) != 2)
 			rotate(stack_b);
 		push(stack_b, stack_a);
 	}
-	if (get_item_at(stack_b, 0).order == 0)
+	if (get_item_at(stack_b, 0) == 0)
 		swap(stack_b);
 	push(stack_b, stack_a);
 	push(stack_b, stack_a);

@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 20:15:55 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/28 22:36:26 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/04/14 11:26:24 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ static void	sort_phase_1(t_stack *stack_a, t_stack *stack_b)
 {
 	int		i;
 	int		range;
-	t_item	item;
+	int		item;
 
 	i = 0;
 	range = (int) ft_isqrt(stack_a->size) * 14 / 10;
 	while (stack_a->size)
 	{
 		item = get_item_at(stack_a, 0);
-		if (item.order <= i)
+		if (item <= i)
 		{
 			push(stack_a, stack_b);
 			rotate(stack_b);
 			i++;
 		}
-		else if (item.order <= i + range)
+		else if (item <= i + range)
 		{
 			push(stack_a, stack_b);
 			i++;
@@ -43,13 +43,13 @@ static void	sort_phase_1(t_stack *stack_a, t_stack *stack_b)
 static int	get_op_count(t_stack *stack, int order)
 {
 	unsigned long	i;
-	t_item			item;
+	int				item;
 
 	i = 0;
 	while (i < stack->size)
 	{
 		item = get_item_at(stack, i);
-		if (item.order == order)
+		if (item == order)
 			return (i);
 		i++;
 	}

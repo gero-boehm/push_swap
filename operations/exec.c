@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:22:22 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/28 23:04:42 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/04/14 11:26:59 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	exec_swap(t_stack *stack)
 {
-	t_item	item1;
-	t_item	item2;
+	int	item1;
+	int	item2;
 
 	if (stack->size < 2)
 		return ;
@@ -27,7 +27,7 @@ void	exec_swap(t_stack *stack)
 
 void	exec_push(t_stack *stack1, t_stack *stack2)
 {
-	t_item	item;
+	int	item;
 
 	if (stack1->size == 0)
 		return ;
@@ -41,7 +41,7 @@ void	exec_push(t_stack *stack1, t_stack *stack2)
 
 void	exec_rotate(t_stack *stack)
 {
-	t_item	item;
+	int	item;
 
 	if (stack->size < 2)
 		return ;
@@ -52,7 +52,7 @@ void	exec_rotate(t_stack *stack)
 
 void	exec_rotate_reverse(t_stack *stack)
 {
-	t_item	item;
+	int	item;
 
 	if (stack->size < 2)
 		return ;

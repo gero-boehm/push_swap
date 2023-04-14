@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 12:33:11 by gbohm             #+#    #+#             */
-/*   Updated: 2023/03/28 23:10:08 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/04/14 11:25:32 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,15 @@ static int	get_order_of_value(int value, t_array *values)
 static void	populate_stack(t_stack *stack, t_array *values)
 {
 	unsigned long	i;
-	t_item			item;
+	int				value;
+	int				order;
 
 	i = 0;
 	while (i < values->size)
 	{
-		item.value = *(int *) get_element_at(values, i);
-		item.order = get_order_of_value(item.value, values);
-		add_item(stack, item);
+		value = *(int *) get_element_at(values, i);
+		order = get_order_of_value(value, values);
+		add_item(stack, order);
 		i++;
 	}
 }
