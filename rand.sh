@@ -15,9 +15,13 @@ fi
 
 # generate n random numbers separated by spaces
 result=""
-for i in $(seq 1 $n); do
+generated=()
+while [[ ${#generated[@]} -lt $n ]]; do
   num=$(( $RANDOM % $range - $range / 2 ))
-  result="$result $num"
+  if [[ ! " ${generated[@]} " =~ " ${num} " ]]; then
+    generated+=($num)
+    result="$result $num"
+  fi
 done
 
 # output the result

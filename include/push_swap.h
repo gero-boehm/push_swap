@@ -6,7 +6,7 @@
 /*   By: gbohm <gbohm@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 15:44:25 by gbohm             #+#    #+#             */
-/*   Updated: 2023/04/14 11:28:48 by gbohm            ###   ########.fr       */
+/*   Updated: 2023/04/15 10:42:25 by gbohm            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ int				does_arg_have_spaces(char *arg);
 int				is_invalid_number(char *str);
 void			sanitize_spaces(char *str);
 int				is_arg_only_spaces(char *str);
+
+int				init_stacks(char **argv, t_stack *stack_a, t_stack *stack_b);
+void			error(void);
 
 #endif

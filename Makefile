@@ -1,8 +1,10 @@
 CC=cc
 CFLAGS=-I include -I lib/include
 NAME=push_swap
-SRC=push_swap.c parser.c parser_utils.c stack.c is_sorted.c sort.c sort_small.c operations/exec.c operations/ops.c operations/ops_both.c
+SRC=src/push_swap.c src/init_stacks.c src/parser.c src/parser_utils.c src/stack.c src/is_sorted.c src/sort.c src/sort_small.c src/exec.c src/ops.c src/ops_both.c
+BONUS_SRC=bonus/checker.c src/init_stacks.c src/parser.c src/parser_utils.c src/stack.c src/is_sorted.c src/exec.c
 OBJ=$(SRC:.c=.o)
+BONUS_OBJ=$(BONUS_SRC:.c=.o)
 HEADERS=include/push_swap.h
 
 ifndef LENIENT
@@ -25,6 +27,9 @@ lib/lib.a:
 $(NAME): lib/lib.a $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $^
 
+bonus: lib/lib.a $(BONUS_OBJ)
+	$(CC) $(CFLAGS) -o checker $^
+
 100: all
 	./push_swap 83 -326 -160 5 151 -260 112 -410 87 -358 -235 224 -142 -282 -228 -87 118 383 23 -117 384 -171 96 308 93 123 373 -372 321 493 -49 -432 -447 -176 451 364 166 -115 -496 190 256 337 350 -380 483 424 132 307 219 -401 242 -159 -53 -211 114 -283 -59 288 200 14 346 27 31 -68 386 -268 -47 -126 469 29 -245 101 332 25 187 362 44 280 -395 -100 268 -458 -154 206 486 -423 419 32 -74 -137 273 318 403 -406 -232 433 -344 -164 -168 216
 
@@ -41,10 +46,10 @@ $(NAME): lib/lib.a $(OBJ)
 	./push_swap -5 -4 -3 -2 -1 0 1 2 3 4
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(BONUS_OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) checker
 
 lclean: fclean
 	rm -rf lib
@@ -52,7 +57,7 @@ lclean: fclean
 re: fclean all
 
 norm:
-	norminette $(SRC) $(HEADERS)
+	norminette $(SRC) $(BONUS_SRC) $(HEADERS)
 
 .PHONY:
 	all bonus clean fclean lclean re norm 100 100r
